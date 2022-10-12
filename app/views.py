@@ -8,6 +8,8 @@ from app.models import TODO
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.core.mail import send_mail
+from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 
 @login_required(login_url='login')
 def home(request):
@@ -102,6 +104,14 @@ def edit_todo(request, pk):
 
 def delete_todo(request , id ):
     print(id)
+    # email=EmailMessage(
+    #     'Confirm to Edit',
+    #     'body',
+    #     settings.EMAIL_HOST_USER,
+    #     ['vickysridhar007@gmail.com']
+    # )
+    # email.fail_silently=False
+    # email.send()
     TODO.objects.get(pk = id).delete()
     return redirect('home')
 
